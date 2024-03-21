@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["TodoApi.csproj", "TodoApi/"]
 RUN dotnet restore "TodoApi/TodoApi.csproj"
-COPY . .
+COPY ["TodoApi.csproj", "./"]
 WORKDIR "/src/TodoApi"
 RUN dotnet build "TodoApi.csproj" -c Release -o /app/build
 
