@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:5252/';
+axios.defaults.baseURL = process.env.REACT_APP_ToDoApi;
 
-const apiUrl = "http://localhost:5252/"
-const apiAdd="http://localhost:5252/add"
-const apiDelete="http://localhost:5252/delete"
-const apiUpdate="http://localhost:5252/updateC"
+const apiUrl = process.env.REACT_APP_ToDoApi
+const apiAdd=`${apiUrl}/add`
+const apiDelete=`${apiUrl}/delete`
+const apiUpdate=`${apiUrl}/updateC`
 
 // צור מופע axios
 const instance = axios.create();
