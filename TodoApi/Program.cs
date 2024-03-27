@@ -103,7 +103,7 @@ app.MapControllers();
 //הרשאת CORS
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-app.MapGet("/", () => "AUSER API ARE RUNNING");
+//app.MapGet("/", () => "AUSER API ARE RUNNING");
 
 app.Run();
 
