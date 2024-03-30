@@ -43,17 +43,17 @@ var app = builder.Build();
 
 
 //כל המשימות
-//app.MapGet("", async (ToDoDbContext context) =>
-//        {
-//            var data=await context.Items.ToListAsync(); 
-//            //ToDoDbContext d1=new ToDoDbContext();
-//            // Get all todo items
-//            //await context.Response.WriteAsJsonAsync("���� �� �����");
-//            return Results.Ok(data);
-//        });
+app.MapGet("", async (ToDoDbContext context) =>
+        {
+            var data = await context.Items.ToListAsync();
+            //ToDoDbContext d1=new ToDoDbContext();
+            // Get all todo items
+            //await context.Response.WriteAsJsonAsync("���� �� �����");
+            return Results.Ok(data);
+        });
 
 //הוספת משימה
-        app.MapPost("add/{name}", async (ToDoDbContext context,string name)=>
+app.MapPost("add/{name}", async (ToDoDbContext context,string name)=>
         {
             var data=await context.Items.ToListAsync();
             Item i1=new Item();
@@ -103,7 +103,7 @@ app.MapControllers();
 //הרשאת CORS
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-app.MapGet("/", () => "AUSER API ARE RUNNING");
+//app.MapGet("/", () => "AUSER API ARE RUNNING");
 
 app.Run();
 
