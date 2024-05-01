@@ -77,20 +77,17 @@ app.MapDelete("delete/{id}", async (ToDoDbContext context, int id) =>
     return Results.Ok(data);
 });
 
-app.MapPut("updateC/{id}/{isComplete}", async (ToDoDbContext context, int id,bool isComplete) =>
+app.MapPut("updateC/{id}", async (ToDoDbContext context, int id,bool complete) =>
 {
- //שאיבת נתונים מהמסד
- var data = await context.Items.ToListAsync();
- //var data2 = await context.Items.FindAsync(a=>a.Id==id);
+    //שאיבת נתונים מהמסד
+    var data = await context.Items.FindAsync(id);
  //מציאת האוביקט שהקוד שלו זהה שלקוד שהתקבל 
- var x=data.Find(a=>a.Id==id);
- //var x2=data.FindAsync(a=>a.Id==id);
-    if(x!=null){
+    if(data==null){
 //עדכון עשית הפעולה
-      x.IsComplate=isComplete;
-      context.Update(x);
-      context.SaveChanges();
+     return Results.NotFound();
     }
+    data.IsComplate = complete;
+    await context.SaveChangesAsync();
     return Results.Ok(data);
 });
 
@@ -103,7 +100,7 @@ app.MapControllers();
 //הרשאת CORS
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-//app.MapGet("/", () => "AUSER API ARE RUNNING");
+app.MapGet("/RUTI", () => "AUSER API ARE RUNNING");
 
 app.Run();
 
