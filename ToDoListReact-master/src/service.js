@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:5252/';
+axios.defaults.baseURL = process.env.REACT_APP_ToDoApi;
 
 const apiUrl = process.env.REACT_APP_ToDoApi
 
