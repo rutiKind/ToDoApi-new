@@ -1,68 +1,59 @@
-import axios from "axios";
+import axios from 'axios';
 
-// axios.defaults.baseURL = process.env.REACT_APP_ToDoApi;
+axios.defaults.baseURL = 'http://localhost:5252/';
 
-//const apiUrl = process.env.REACT_APP_ToDoApi
-const apiUrl = "https://localhost:7100";
-const apiAdd = `${apiUrl}/add`;
-const apiDelete = `${apiUrl}/delete`;
-const apiUpdate = `${apiUrl}/updateC`;
+const apiUrl = "http://localhost:5252/"
+const apiAdd="http://localhost:5252/add"
+const apiDelete="http://localhost:5252/delete"
+const apiUpdate="http://localhost:5252/updateC"
 
 // צור מופע axios
-axios.interceptors.request.use(
-  function (config) {
-    console.log(apiUrl);
-    console.log("config", config);
-    return config;
-  },
-  function (error) {
-    console.log("error", error);
-    return Promise.reject(error);
-  }
-);
+const instance = axios.create();
+
 // הוסף מיירט תגובה
-axios.interceptors.response.use(
-  function (res) {
-    console.log("res", res);
-    return res;
+instance.interceptors.response.use(
+  (response) => {
+    // החזר את התגובה אם היא הצליחה
+    return response;
   },
-  function (error) {
-    console.log("error", error);
-    return Promise.reject(error);
+  (error) => {
+    // רשם את השגיאה 
+    console.error(error);
+    // זרוק את השגיאה 
+    throw error;
   }
 );
 
 export default {
   getTasks: async () => {
-    debugger;
-    const result = await axios.get(apiUrl);
-    console.log(result);
+    const result = await instance.get(apiUrl)
     return result.data;
   },
 
   //הוספת משימה
   addTask: async (name) => {
-    const response = await axios.post(`${apiAdd}/${name}`);
-    console.log(response.data);
+      const response = await instance.post(`${apiAdd}/${name}`);
+      console.log(response.data);
     return {};
   },
 
   // סימון משימה כנעשתה
   setCompleted: async (id, isComplete) => {
-    const response = await axios.put(`${apiUpdate}/${id}`, null, {
-      params: {
-        complete: isComplete,
-      },
-    });
-    console.log("setCompleted", { id });
+      const response = await instance.put(`${apiUpdate}/${id}/${isComplete}`);
+      console.log('setCompleted', { id });
     return {};
   },
 
   //מחיקת משימה
   deleteTask: async (name) => {
-    const response = await axios.delete(`${apiDelete}/${name}`);
-    console.log(response.data);
-    console.log("deleteTask");
+      const response = await instance.delete(`${apiDelete}/${name}`);
+      console.log(response.data);
+     console.log('deleteTask');
     return {};
   },
 };
+
+
+
+
+
