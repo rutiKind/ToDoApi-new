@@ -2,7 +2,9 @@ import axios from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_ToDoApi;
 
-const apiUrl = process.env.REACT_APP_ToDoApi
+// const apiUrl = process.env.REACT_APP_ToDoApi
+const apiUrl = 'https://localhost:7100/'
+
 
 const apiAdd = `${apiUrl}/add`;
 const apiDelete = `${apiUrl}/delete`;
